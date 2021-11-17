@@ -10,6 +10,11 @@ This tool can:
 - Combine multiple .txt to one
 - Uppercase/Lowercase First Character In Password
 
+To run this script type this:
+```bash=
+python3 ExtremEditor.py
+```
+
 If you want any other feature contact me :)
 
 FOR EDUCATIONAL PURPOSES ONLY
