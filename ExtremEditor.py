@@ -47,8 +47,7 @@ class Editor:
         root.withdraw()
         try:
             eval(f'self.{methods[int(choice) - 1].split("|")[1]}()')
-        except Exception as e:
-            print(e)
+        except:
             self.menu()
 
 
