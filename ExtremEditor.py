@@ -131,7 +131,7 @@ class Editor:
             else:
                 print(f'{self.__SecondaryColor}' + '\n'.join([f' {a[:-1]}' for a in listmail]))
             del tempdic, b
-            print(f'\n{self.__SecondaryColor}[{self.__PrimaryColor}1{self.__SecondaryColor}] Extract All')
+            print(f'\n{self.__SecondaryColor}[{self.__PrimaryColor}1{self.__SecondaryColor}] Extract All (Only 49 most domain found)')
             print(f'{self.__SecondaryColor}[{self.__PrimaryColor}2{self.__SecondaryColor}] Back')
             print(f'{self.__PrimaryColor}\nroot@extrem{self.__SecondaryColor}# ', end="")
             choice = input()
@@ -140,10 +140,6 @@ class Editor:
                 open(f'{filename.split("/")[-1][:-4]}_{domain[0]}.txt', 'a').write("\n".join([a for a in open(filename, 'r', errors="ignore").read().split('\n') if domain[0] in a]))
 
             if choice == "1":
-                try:
-                    os.mkdir(filename.split('/')[-1][:-4])
-                except FileExistsError:
-                    pass
                 for dom in domain[:49]:
                     threading.Thread(target=CreateTexts, args=[dom]).start()
                 self.DomainSorter()
