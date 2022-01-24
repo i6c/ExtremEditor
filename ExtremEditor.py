@@ -109,9 +109,11 @@ class Editor:
             self.menu()
         if choice == "1":
             self.Clear()
-            print(f'{self.__ico}\n\n{fg("#8B0000")} > {fg("#303030")}This method can take time for +10M combolist !\n')
-            path = filedialog.askopenfilename()
-            b = [b[b.index('@'):b.index(':')] for b in open(path, 'r', errors="ignore").read().split('\n') if "@" in b and ":" in b]
+            print(f'{self.__ico}\n\n{fg("00FF00")} > {fg("00FF00")}This method can take time for +10M combolist !\n')
+            print(f'{self.__ico}\n\n{fg("00FF00")} > {fg("00FF00")}Improved by i6c! Added multiple files support.\n')
+            path = filedialog.askopenfilenames()
+            for filename in path:
+                b = [b[b.index('@'):b.index(':')] for b in open(path, 'r', errors="ignore").read().split('\n') if "@" in b and ":" in b]
             tempdic = {a: 0 for a in list(set(b))}
             for domain in b:
                 tempdic[domain] += 1
